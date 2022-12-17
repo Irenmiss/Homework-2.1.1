@@ -1,9 +1,11 @@
 package Homework;
 
+import java.util.Objects;
+
 public class Human {
-    public int yearOfBirth;
+    private int yearOfBirth;
     public String name;
-    public String town;
+    private String town;
     public String jobTitle;
 
     Human(String name, int yearOfBirth, String town, String jobTitle) {
@@ -33,6 +35,38 @@ public class Human {
         System.out.println("Привет! Меня зовут " + name + ". Я из города " + town + ". Я родился/ась в " + yearOfBirth + " году. Я работаю на должности " + jobTitle + ". Будем знакомы!");
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public int getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setYearOfBirth(int yearOfBirth) {
+        if (yearOfBirth == 0 || yearOfBirth < 0) {
+            this.yearOfBirth = 0;
+        } else {
+            this.yearOfBirth = yearOfBirth;
+        }
+    }
+
+    public void setTown(String town) {
+        if (town.isEmpty() || town == null || town.isBlank()) {
+            this.town = "Информация не указана";
+        } else {
+            this.town = town;
+        }
+    }
+
     @Override
     public String toString() {
         return "Human{" +
@@ -40,5 +74,18 @@ public class Human {
                 ", name='" + name + '\'' +
                 ", town='" + town + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Human human = (Human) o;
+        return yearOfBirth == human.yearOfBirth && Objects.equals(name, human.name) && Objects.equals(town, human.town) && Objects.equals(jobTitle, human.jobTitle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(yearOfBirth, name, town, jobTitle);
     }
 }
